@@ -6,7 +6,7 @@
 function reMainJs($, parts = ['prep', 'panels', 'events', 'header', 'footer', 'main']) {
 	var $window = $(window),
 		$body = $('body'),
-		$wrapper = $('#wrapper');
+		$wrapper = $('#wrapper-onload');
 
 	// Breakpoints.
 	breakpoints({
@@ -33,6 +33,7 @@ function reMainJs($, parts = ['prep', 'panels', 'events', 'header', 'footer', 'm
 			// Play initial animations on page load.
 			$window.on('load', function () {
 				window.setTimeout(function () {
+					document.getElementById('wrapper-onload').id = 'wrapper';
 					$body.removeClass('is-preload');
 				}, 100);
 			});
@@ -259,6 +260,7 @@ function reMainJs($, parts = ['prep', 'panels', 'events', 'header', 'footer', 'm
 		});
 
 		// Poptrox.
+		/*
 		$main.poptrox({
 			baseZIndex: 20000,
 			caption: function ($a) {
@@ -300,7 +302,7 @@ function reMainJs($, parts = ['prep', 'panels', 'events', 'header', 'footer', 'm
 
 		breakpoints.on('>xsmall', function () {
 			$main[0]._poptrox.windowMargin = 50;
-		});
+		});*/
 	}
 }
 

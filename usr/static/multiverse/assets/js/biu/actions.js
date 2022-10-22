@@ -206,6 +206,7 @@ function getMarks(user = '', mode = 'public', grp = '0@0') {
     });
 }
 
+
 function getFollowing(user = '', mode = 'public', grpIdx = 0) {
     NProgress.inc();
     cssShowLoading();
@@ -274,6 +275,7 @@ function searchForUsers(key, grpIdx = 0) {
     });
 }
 
+
 function getOneWork(id) {
     NProgress.inc();
     cssShowLoading();
@@ -300,6 +302,7 @@ function getOneWork(id) {
         }
     });
 }
+
 
 function doBookmark(id, action = 'add') {
     let des, de, icon, tURL;

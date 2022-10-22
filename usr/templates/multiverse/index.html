@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="static/multiverse/assets/css/n.css" />
 </head>
 
-<body class="is-preload" style="padding: 0 50px;">
+<body class="is-preload" style="padding: 0 40px;">
     <div class="search-area">
         <div class="bar">
             <input id="srhBox" class="tooltip" placeholder="Biu~" autocomplete="off" title="搜索 · 回车执行">
@@ -30,7 +30,7 @@
     </div>
 
     <!-- Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper-onload">
 
         <!-- Header -->
         <header id="header">
@@ -48,20 +48,17 @@
         <!-- Main -->
         <div id="main">
             <article id="codeBox" class="thumb">
-                <a href="javascript: void(0);" class="imageBtn pop_ctrl"><img
-                        src="static/multiverse/images/thumbs/01.jpg" /></a>
+                <a href="javascript: void(0);" class="imageBtn pop_ctrl"><img src="static/multiverse/images/thumbs/01.jpg" /></a>
                 <h2>建议</h2>
                 <ul>
                     <li>Biu 为搜索框</li>
                     <li>输入 @ 可以进入指令模式</li>
                     <br>
-                    <li style="display: block; color: rgb(255, 255, 255); width: 100%; text-align: right; padding: 0px 10px; font-size: 1.1em; font-weight: 400; cursor: default;"
-                        v-for="advice in advice_block_list">[[ advice ]]</li>
+                    <li style="display: block; color: rgb(255, 255, 255); width: 100%; text-align: right; padding: 0px 10px; font-size: 1.1em; font-weight: 400; cursor: default;" v-for="advice in advice_block_list">[[ advice ]]</li>
                 </ul>
             </article>
             <article id="rankBox" class="thumb">
-                <a href="javascript: void(0);" class="imageBtn pop_ctrl"><img
-                        src="static/multiverse/images/thumbs/02.jpg" /></a>
+                <a href="javascript: void(0);" class="imageBtn pop_ctrl"><img src="static/multiverse/images/thumbs/02.jpg" /></a>
                 <h2>排行榜</h2>
                 <ul>
                     <li><a href="javascript: getRank('day');">日图</a></li>
@@ -92,10 +89,13 @@
             </article>
             <article class="thumb">
                 <input id="image-input" type="file" accept="image/*" @change="searchImage($event)" hidden>
-                <a id="preview-searchImage" href="javascript: void(0);" class="imageBtn"
-                    @click="$('#image-input').click()"><img src="static/multiverse/images/thumbs/04.jpg" /></a>
+                <a id="preview-searchImage" href="javascript: void(0);" class="imageBtn" @click="$('#image-input').click()"><img src="static/multiverse/images/thumbs/04.jpg" /></a>
                 <h2 id="title-block-searchImage">图片搜索</h2>
             </article>
+        </div>
+
+        <div class="totop" onclick="javascript: $('body,html').animate({scrollTop:0},400);">
+            <img src="static/multiverse/assets/css/images/totop.svg">
         </div>
 
         <div id="filter" class="panel">
@@ -104,27 +104,20 @@
                     <section>
                         <h2>属性</h2>
                         <div class="grid-3">
-                            <input id="filtersImageWidth" class="tooltip" placeholder="宽度范围" autocomplete="off"
-                                title="图片的宽度范围，如 100:200 或 100: 或 :200">
-                            <input id="filtersImageHeight" class="tooltip" placeholder="高度范围" autocomplete="off"
-                                title="图片的高度范围，如 500:600 或 500: 或 :600">
-                            <input id="filtersImageWidthHeightRate" class="tooltip" placeholder="宽高比范围"
-                                autocomplete="off" title="图片的宽高比范围，以 / 表示比，以 : 表示范围，如 1/1:4/3 或 1/1: 或 :4/3">
+                            <input id="filtersImageWidth" class="tooltip" placeholder="宽度范围" autocomplete="off" title="图片的宽度范围，如 100:200 或 100: 或 :200">
+                            <input id="filtersImageHeight" class="tooltip" placeholder="高度范围" autocomplete="off" title="图片的高度范围，如 500:600 或 500: 或 :600">
+                            <input id="filtersImageWidthHeightRate" class="tooltip" placeholder="宽高比范围" autocomplete="off" title="图片的宽高比范围，以 / 表示比，以 : 表示范围，如 1/1:4/3 或 1/1: 或 :4/3">
                         </div>
                         <div>
-                            <input id="filtersImageTime" class="tooltip" placeholder="时间范围" autocomplete="off"
-                                title="图片的时间范围，如 2020-03-13:2022-03-13 或 start: 或 :end">
-                            <input id="filtersRankDate" class="tooltip" placeholder="排行榜日期" autocomplete="off"
-                                title="仅对排行榜有效，查看指定日期的数据，如 2022-03-24">
+                            <input id="filtersImageTime" class="tooltip" placeholder="时间范围" autocomplete="off" title="图片的时间范围，如 2020-03-13:2022-03-13 或 start: 或 :end">
+                            <input id="filtersRankDate" class="tooltip" placeholder="排行榜日期" autocomplete="off" title="仅对排行榜有效，查看指定日期的数据，如 2022-03-24">
                         </div>
                     </section>
                     <section>
                         <h2>类别</h2>
                         <div>
-                            <input id="filtersImageType" class="tooltip" placeholder="类型" autocomplete="off"
-                                title="图片的类型，可填入 i(插图), m(漫画), u(动图), o(其他)，在其后加 s 可仅显示多图，加 o 仅显示单图。多个类型以逗号隔开，如 i,ms,oo">
-                            <input id="filtersNameTag" class="tooltip" placeholder="标签关键词" autocomplete="off"
-                                title="标签中必须包含全部关键词，多个标签以逗号隔开，如 tag1,tag2">
+                            <input id="filtersImageType" class="tooltip" placeholder="类型" autocomplete="off" title="图片的类型，可填入 i(插图), m(漫画), u(动图), o(其他)，在其后加 s 可仅显示多图，加 o 仅显示单图。多个类型以逗号隔开，如 i,ms,oo">
+                            <input id="filtersNameTag" class="tooltip" placeholder="标签关键词" autocomplete="off" title="标签中必须包含全部关键词，多个标签以逗号隔开，如 tag1,tag2">
                         </div>
                     </section>
                 </div>
@@ -132,20 +125,15 @@
                     <section>
                         <h2>搜索</h2>
                         <div>
-                            <input id="settingsPageNum" class="tooltip" placeholder="每组页数" autocomplete="off"
-                                title="单次搜索的页数，建议参数不要过大">
-                            <input id="settingsSearchMode" class="tooltip" placeholder="搜索模式" autocomplete="off"
-                                title="tag: 匹配部分标签（默认），otag: 全标签，des: 标题或描述">
-                            <input id="settingsSortMode2" class="tooltip" placeholder="排序模式" autocomplete="off"
-                                title="0: 按收藏数降序，1: 按人气（浏览数）降序，2: 按日期降序，3: 按日期升序，在其后加 s 可为所有结果排序。如 0 或 0s">
+                            <input id="settingsPageNum" class="tooltip" placeholder="每组页数" autocomplete="off" title="单次搜索的页数，建议参数不要过大">
+                            <input id="settingsSearchMode" class="tooltip" placeholder="搜索模式" autocomplete="off" title="tag: 匹配部分标签（默认），otag: 全标签，des: 标题或描述">
+                            <input id="settingsSortMode2" class="tooltip" placeholder="排序模式" autocomplete="off" title="0: 按收藏数降序，1: 按人气（浏览数）降序，2: 按日期降序，3: 按日期升序，在其后加 s 可为所有结果排序。如 0 或 0s">
                         </div>
                         <p>搜索以外的筛选项留空时为取消，或点击<a href="javascript: saveFiltersCookie(true);">此处</a>以重置。</p>
                     </section>
                     <section>
-                        <button class="primary"
-                            onclick="javascript: saveFiltersCookie(); saveSettingsCookie();">保存</button>
-                        <button id="btn-save-refresh" style="display: none;" class="primary"
-                            onclick="javascript: saveFiltersCookie(); saveSettingsCookie(); grpActChon('now');">保存并刷新</button>
+                        <button class="primary" onclick="javascript: saveFiltersCookie(); saveSettingsCookie();">保存</button>
+                        <button id="btn-save-refresh" style="display: none;" class="primary" onclick="javascript: saveFiltersCookie(); saveSettingsCookie(); grpActChon('now');">保存并刷新</button>
                     </section>
                 </div>
             </div>
@@ -157,19 +145,15 @@
                     <section>
                         <h2>图片</h2>
                         <div>
-                            <input id="settingsIsOriPic" class="tooltip" placeholder="大图预览" autocomplete="off"
-                                title="在图片详情页显示较大尺寸的图片。on: 开启，off: 关闭（若图片加载时间过长，建议关闭）">
-                            <input id="settingsRvrProxyUrl" class="tooltip" placeholder="图片反代地址" autocomplete="off"
-                                title="Pixiv 图片反向代理地址（如果不是很懂请勿修改）">
+                            <input id="settingsIsOriPic" class="tooltip" placeholder="大图预览" autocomplete="off" title="在图片详情页显示较大尺寸的图片。on: 开启，off: 关闭（若图片加载时间过长，建议关闭）">
+                            <input id="settingsRvrProxyUrl" class="tooltip" placeholder="图片反代地址" autocomplete="off" title="Pixiv 图片反向代理地址（如果不是很懂请勿修改）">
                         </div>
                     </section>
                     <section>
                         <h2>功能</h2>
                         <div>
-                            <input id="settingsActionType" class="tooltip" placeholder="操作类型" autocomplete="off"
-                                title="public: 当进行收藏、关注等操作时默认放入公开类别；private: 私人类别">
-                            <input id="settingsIsR18" class="tooltip" placeholder="R18 内容" autocomplete="off"
-                                title="是否展示 R18 内容。on: 开启，off: 关闭">
+                            <input id="settingsActionType" class="tooltip" placeholder="操作类型" autocomplete="off" title="public: 当进行收藏、关注等操作时默认放入公开类别；private: 私人类别">
+                            <input id="settingsIsR18" class="tooltip" placeholder="R18 内容" autocomplete="off" title="是否展示 R18 内容。on: 开启，off: 关闭">
                         </div>
                         <p>更多设置请于 <b>config.yml</b> 文件中修改。</p>
                     </section>
@@ -177,14 +161,14 @@
                 <div class="filters">
                     <section>
                         <h2>预留</h2>
-                        <button style="margin: 5px 0;" class="primary"
-                            onclick="javascript: saveSettingsCookie();">保存</button>
+                        <button style="margin: 5px 0;" class="primary" onclick="javascript: saveSettingsCookie();">保存</button>
                     </section>
                 </div>
             </div>
         </div>
 
         <!-- About -->
+
         <div id="about" class="panel">
             <div class="inner split">
                 <div>
@@ -204,25 +188,21 @@
                                         solid fa-air-freshener"><span class="label">Official</span></a>
                             </li>
                             <li>
-                                <a target="_blank" href="mailto:txperl@gmail.com" class="icon solid fa-envelope"><span
-                                        class="label">Email</span></a>
+                                <a target="_blank" href="mailto:txperl@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a>
                             </li>
                         </ul>
                     </section>
                     <p class="copyright">
                         &copy;
                         <a target="_blank" href="https://tls.moe/">铜锣烧计划</a>.
-                        <br>Created by <a target="_blank" href="https://yumoe.com/">Trii Hisa</a>.<br>Design by <a
-                            target="_blank" href="https://html5up.net/">HTML5 UP</a>.
+                        <br>Created by <a target="_blank" href="https://yumoe.com/">Trii Hisa</a>.<br>Design by <a target="_blank" href="https://html5up.net/">HTML5 UP</a>.
                     </p>
                 </div>
                 <div>
                     <section>
                         <h2>其他</h2>
-                        <a target="_blank" href="https://biu.tls.moe/#/usage/basic">如何使用?</a> & <a target="_blank"
-                            href="mailto:txperl@gmail.com?subject=「PixivBiu」">反馈</a><br><br>
-                        <button id="btnCheckUP" onclick="checkOutdated();" class="primary tooltip"
-                            title="BiuBiuBiu~">检测更新</button><br><br>
+                        <a target="_blank" href="https://biu.tls.moe/#/usage/basic">如何使用?</a> & <a target="_blank" href="mailto:txperl@gmail.com?subject=「PixivBiu」">反馈</a><br><br>
+                        <button id="btnCheckUP" onclick="checkOutdated();" class="primary tooltip" title="BiuBiuBiu~">检测更新</button><br><br>
                         <p>If you feel your rights have been violated, please contact me through the
                             information above. Sorry a lot.</p>
                     </section>
@@ -275,11 +255,11 @@
             '#filtersRankDate': ['pixivbiu_filterRkDate', '排行榜日期'],
         };
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             getVersion();
             loadFilters();
             loadSearchSettings();
-            progresserDownloading_auto();
+            //progresserDownloading_auto();
             $('#myBox').popmenu();
             $('#codeBox').popmenu();
             $('#rankBox').popmenu();
@@ -288,13 +268,13 @@
             if (code) setTimeout((c = decodeURIComponent(code)) => changeSrhBox(c, 2), 300);
         });
 
-        $('#srhBox').keypress(function (e) {
+        $('#srhBox').keypress(function(e) {
             if (e.which === 13 && $('#srhBox').val() !== '') {
                 srhBoxDo();
             }
         });
 
-        $("#srhBox").bind("input propertychange", function (event) {
+        $("#srhBox").bind("input propertychange", function(event) {
             srhBoxStu();
         });
 
@@ -407,7 +387,8 @@
         }
 
         function showPics(title = '', reLoadList = ['main', 'header'], c = tmpPageData) {
-            let rstHtml = '', kt;
+            let rstHtml = '',
+                kt;
             let headerHtml = '';
             const typeName = {
                 "illustration": "图",
@@ -422,7 +403,8 @@
 
                 // 整理结果
                 // 用户作品类的用户信息显示
-                if (c.rst.data.length > 0 && c['args']['ops']['method'] === 'userWorks') {
+
+                if (c.rst.data.length > 0 && (c['args']['ops']['method'] === 'userWorks' || c['args']['ops']['method'] === 'userMarks')) {
                     let li = '';
                     if (data[0]['author']['is_followed']) {
                         li = '<a id="follow_' + data[0]['author']['id'] + '" href="javascript: doFollow(' + data[0]['author']['id'] + ', \'del\');"><b class="tooltip" title="取消关注"><hicon>💘</hicon></b></a>';
@@ -432,20 +414,26 @@
                     li += '<a target="_blank" href="https://www.pixiv.net/users/' + data[0]['author']['id'] + '"><d class="tooltip" title="打开画师 Pixiv 主页">Pixiv</d></a>';
                     li += '<a target="_blank" href=".?code=%40u%3D' + data[0]['author']['id'] + '%20-f"><op class="tooltip" title="获取 TA 的关注列表">关注列表</op></a>';
                     li += '<a target="_blank" href=".?code=%40u%3D' + data[0]['author']['id'] + '%20-m"><sf class="tooltip" title="获取 TA 的作品收藏">作品收藏</op></a>';
-                    rstHtml += '<article class="thumb"><a class="imageBtn"><img src="' + data[0]['all']['user']['profile_image_urls']['medium'].replace('i.pximg.net', 'i.pixiv.re') + '" alt="" /></a><h2>画师@' + data[0]['author']['name'] + '</h2><section class="thumbAction">' + li + '</section></article>';
+                    rstHtml += '<article class="thumb"><a class="imageBtn"><img src="' + data[0]['all']['user']['profile_image_urls']['medium'].replace('i.pximg.net', 'i.pixiv.re') + '" alt="" /></a><h2>画师@' + data[0]['author']['name'] +
+                        '</h2><section class="thumbAction">' + li + '</section></article>';
+                    $('#main').html(rstHtml);
                 }
 
                 // 用户列表整理
-                for (i = 0; i < data.length && (c['args']['ops']['method'] === 'userFollowing' || c['args']['ops']['method'] === 'searchUsers'); i++) {
-                    let li = '';
-                    if (data[i]['is_followed']) {
-                        li = '<a id="follow_' + data[i]['id'] + '" href="javascript: doFollow(' + data[i]['id'] + ', \'del\');"><b class="tooltip" title="取消关注"><hicon>💘</hicon></b></a>';
-                    } else {
-                        li = '<a id="follow_' + data[i]['id'] + '" href="javascript: doFollow(' + data[i]['id'] + ', \'add\');"><b class="tooltip" title="关注"><hicon>💗</hicon></b></a>';
+                if (c['args']['ops']['method'] === 'userFollowing' || c['args']['ops']['method'] === 'searchUsers') {
+                    for (i = 0; i < data.length; i++) {
+                        let li = '';
+                        if (data[i]['is_followed']) {
+                            li = '<a id="follow_' + data[i]['id'] + '" href="javascript: doFollow(' + data[i]['id'] + ', \'del\');"><b class="tooltip" title="取消关注"><hicon>💘</hicon></b></a>';
+                        } else {
+                            li = '<a id="follow_' + data[i]['id'] + '" href="javascript: doFollow(' + data[i]['id'] + ', \'add\');"><b class="tooltip" title="关注"><hicon>💗</hicon></b></a>';
+                        }
+                        li += '<a target="_blank" href=".?code=%40u%3D' + data[i]['id'] + '%20-i"><d class="tooltip" title="获取 TA 的插画作品">插画</d></a>';
+                        li += '<a target="_blank" href=".?code=%40u%3D' + data[i]['id'] + '%20-c"><op class="tooltip" title="获取 TA 的漫画作品">漫画</d></a>';
+                        rstHtml += '<article class="thumb"><a class="imageBtn"><img src="' + data[i]['profile_image_urls']['medium'].replace('i.pximg.net', 'i.pixiv.re') + '" alt="" /></a><h2>' + data[i]['name'] +
+                            '</h2><section class="thumbAction">' + li + '</section></article>';
                     }
-                    li += '<a target="_blank" href=".?code=%40u%3D' + data[i]['id'] + '%20-i"><d class="tooltip" title="获取 TA 的插画作品">插画</d></a>';
-                    li += '<a target="_blank" href=".?code=%40u%3D' + data[i]['id'] + '%20-c"><op class="tooltip" title="获取 TA 的漫画作品">漫画</d></a>';
-                    rstHtml += '<article class="thumb"><a class="imageBtn"><img src="' + data[i]['profile_image_urls']['medium'].replace('i.pximg.net', 'i.pixiv.re') + '" alt="" /></a><h2>' + data[i]['name'] + '</h2><section class="thumbAction">' + li + '</section></article>';
+                    $('#main').html(rstHtml);
                 }
 
                 // 排序
@@ -465,156 +453,255 @@
                     });
                 }
 
-                // 通用作品整理
-                for (i = 0; i < data.length && (c['args']['ops']['method'] !== 'userFollowing' && c['args']['ops']['method'] !== 'searchUsers'); i++) {
-                    // 筛选
-                    if (["works", "recommend", "rank", "newToMe", "userWorks", "userMarks"].includes(c.args.ops.method)) {
-                        const _im_width = tmpFilters["pixivbiu_fitlerImWidth"].split(":");
-                        const _im_height = tmpFilters["pixivbiu_fitlerImHeight"].split(":");
-                        const _im_whrate = tmpFilters["pixivbiu_fitlerImWHRate"].split(":");
-                        const _im_time = tmpFilters["pixivbiu_filterImTime"].split(":");
-                        const _im_type = splitNoEmpty(tmpFilters["pixivbiu_filterImType"], ",");
-                        const _name_tag = splitNoEmpty(tmpFilters["pixivbiu_filterNaTag"], ",");
-                        if (_im_width.length === 2) {
-                            const min = _im_width[0];
-                            const max = _im_width[1];
-                            if (min && data[i].all.width < Number(min))
-                                continue;
-                            if (max && data[i].all.width > Number(max))
-                                continue;
-                        }
-                        if (_im_height.length === 2) {
-                            const min = _im_height[0];
-                            const max = _im_height[1];
-                            if (min && data[i].all.height < Number(min))
-                                continue;
-                            if (max && data[i].all.height > Number(max))
-                                continue;
-                        }
-                        if (_im_whrate.length === 2) {
-                            const im_rate = data[i].all.width / data[i].all.height;
-                            console.log(im_rate)
-                            const mins = _im_whrate[0].split("/");
-                            const maxs = _im_whrate[1].split("/");
-                            if (mins.length === 2 && im_rate < Number(mins[0]) / Number(mins[1]))
-                                continue
-                            if (maxs.length === 2 && im_rate > Number(maxs[0]) / Number(maxs[1]))
-                                continue
-                        }
-                        if (_im_time.length > 0) {
-                            const min = _im_time[0];
-                            const max = _im_time[1];
-                            const time = Number(data[i].created_time.replaceAll("-", "").split(" ")[0]);
-                            if (min && time < Number(min.replaceAll("-", "")))
-                                continue;
-                            if (max && time > Number(max.replaceAll("-", "")))
-                                continue;
-                        }
-                        if (_im_type.length > 0) {
-                            let isNeed = false;
-                            for (let j = 0; j < _im_type.length; j++) {
-                                const type = _im_type[j];
-                                if (type[0] && type[0] === data[i].type[0]) {
-                                    isNeed = true
-                                    if (type[1] && type[1] === "o" && data[i].all.meta_pages.length > 0)
-                                        isNeed = false
-                                    if (type[1] && type[1] === "s" && data[i].all.meta_pages.length <= 0)
-                                        isNeed = false
-                                    break;
-                                }
+                // 单一作品处理
+                if (c['args']['ops']['method'] === 'oneWork') {
+                    $.ajax({
+                        type: "GET",
+                        url: "api/biu/get/idworks/",
+                        async: true,
+                        data: {
+                            'userID': data[0]['author']['id'],
+                            'type': 'illust',
+                            'totalPage': tmpSearchSettings['pixivbiu_searchPageNum'],
+                            'groupIndex': 0,
+                        },
+                        success: function(rep) {
+                            rep = jQuery.parseJSON(JSON.stringify(rep));
+                            if (rep.code) {
+                                var au_list = rep.msg.rst.data;
+                                userWorksPreview(au_list);
                             }
-                            if (!isNeed) continue;
+                        },
+                        error: function(e) {
+
                         }
-                        if (_name_tag.length > 0) {
-                            let isNeed = true;
-                            for (let j = 0; j < _name_tag.length; j++) {
-                                const tag = _name_tag[j].toLowerCase();
-                                let _isNeed = false;
-                                for (let k = 0; k < data[i].tags.length; k++) {
-                                    if (data[i].tags[k].toLowerCase().includes(tag)) {
-                                        _isNeed = true;
+                    });
+
+                    var imgs = '';
+                    if (data.length === 1) {
+                        var imgUrl = data[0]['all']['meta_single_page']['original_image_url'].replace('https://i.pximg.net', tmpSearchSettings['pixivbiu_RvrProxyUrl']);
+                        imgs = '<div class="originimg"><img src="' + imgUrl + '""></div>';
+                    } else {
+                        for (i = 0; i < data.length; i++) {
+                            //console.log(data[0]['all']['meta_pages'][i]['image_urls']['original'])
+                            var imgUrl = data[0]['all']['meta_pages'][i]['image_urls']['original'].replace('https://i.pximg.net', tmpSearchSettings['pixivbiu_RvrProxyUrl']);
+                            if (i == 0) {
+                                imgs += '<div class="originimg"><img src="' + imgUrl + '""></div>';
+                            } else {
+                                imgs += '<div class="originimg"><img src unload="' + imgUrl + '""></div>';
+                            }
+
+                        }
+                        imgs += '<div class="getmoreimg" onclick="javascript: getallimgs()">加载全部</div>'
+                    }
+                    rstHtml += '<div class="oneworklist">' + imgs + '</div>';
+
+                    var au = '<h2>' + data[0]['title'] + '</h2><p>' + data[0]['created_time'] + '</p><hr><p>' + data[0]['caption'] + '</p>';
+                    var tag0 = '';
+                    for (i = 0; i < data[0]['all']['tags'].length; i++) {
+                        tag0 += '<div class="tag-container"><div class="tag-jp"><a target="_blank" href=".?code=%40s%3D' + maybeEncode(data[0]['all']['tags'][i]['name']) + ' -o">#' + maybeXSS(data[0]['all']['tags'][i]['name']) + '</a></div></div>';
+                        if (data[0]['all']['tags'][i]['translated_name'] !== null) {
+                            tag0 += '<div class="tag-container"><div class="tag-tr"><a target="_blank" href=".?code=%40s%3D' + maybeEncode(data[0]['all']['tags'][i]['name']) + ' -o">#' + maybeXSS(data[0]['all']['tags'][i]['translated_name']) +
+                                '</a></div></div>';
+                        }
+                    }
+                    au += '<div class="worktags">' + tag0 + '</div>';
+
+                    au += '<div class="workstatics"><img src="static/multiverse/assets/css/images/viewed.svg"><span>' + data[0]['total_viewed'] + '</span><img src="static/multiverse/assets/css/images/bookmark.svg"><span>' + data[0][
+                        'total_bookmarked'
+                    ] + '</span></div>';
+
+
+                    var userimg = data[0]['all']['user']['profile_image_urls']['medium'].replace('https://i.pximg.net', tmpSearchSettings['pixivbiu_RvrProxyUrl']);
+                    au += '<div class="user-profile"><a target="_blank" href=".?code=%40u%3D' + data[0]['author']['id'] + '%20-i"><img src="' + userimg + '"><h2>' + data[0]['author']['name'] + '</h2></a></div>';
+
+                    au += '<div class="userworks-pre"></div>';
+
+                    rstHtml += '<div class="work-details">' + au + '</div>';
+
+                    $('#main').html(rstHtml);
+                }
+
+                // 瀑布流
+                if (['rank', 'userWorks', 'works', 'recommend', 'userMarks'].includes(c['args']['ops']['method'])) {
+                    _waterfall();
+                }
+
+                // 通用作品整理
+                //if (c['args']['ops']['method'] !== 'userFollowing' && c['args']['ops']['method'] !== 'searchUsers' && c['args']['ops']['method'] !== 'oneWork' && c['args']['ops']['method'] !== 'rank') {
+                if (!['userFollowing', 'searchUsers', 'oneWork', 'rank', 'userWorks', 'works', 'recommend', 'userMarks'].includes(c['args']['ops']['method'])) {
+                    for (i = 0; i < data.length; i++) {
+                        // 筛选
+                        if (["works", "recommend", "rank", "newToMe", "userWorks", "userMarks"].includes(c.args.ops.method)) {
+                            const _im_width = tmpFilters["pixivbiu_fitlerImWidth"].split(":");
+                            const _im_height = tmpFilters["pixivbiu_fitlerImHeight"].split(":");
+                            const _im_whrate = tmpFilters["pixivbiu_fitlerImWHRate"].split(":");
+                            const _im_time = tmpFilters["pixivbiu_filterImTime"].split(":");
+                            const _im_type = splitNoEmpty(tmpFilters["pixivbiu_filterImType"], ",");
+                            const _name_tag = splitNoEmpty(tmpFilters["pixivbiu_filterNaTag"], ",");
+                            if (_im_width.length === 2) {
+                                const min = _im_width[0];
+                                const max = _im_width[1];
+                                if (min && data[i].all.width < Number(min))
+                                    continue;
+                                if (max && data[i].all.width > Number(max))
+                                    continue;
+                            }
+                            if (_im_height.length === 2) {
+                                const min = _im_height[0];
+                                const max = _im_height[1];
+                                if (min && data[i].all.height < Number(min))
+                                    continue;
+                                if (max && data[i].all.height > Number(max))
+                                    continue;
+                            }
+                            if (_im_whrate.length === 2) {
+                                const im_rate = data[i].all.width / data[i].all.height;
+                                console.log(im_rate)
+                                const mins = _im_whrate[0].split("/");
+                                const maxs = _im_whrate[1].split("/");
+                                if (mins.length === 2 && im_rate < Number(mins[0]) / Number(mins[1]))
+                                    continue
+                                if (maxs.length === 2 && im_rate > Number(maxs[0]) / Number(maxs[1]))
+                                    continue
+                            }
+                            if (_im_time.length > 0) {
+                                const min = _im_time[0];
+                                const max = _im_time[1];
+                                const time = Number(data[i].created_time.replaceAll("-", "").split(" ")[0]);
+                                if (min && time < Number(min.replaceAll("-", "")))
+                                    continue;
+                                if (max && time > Number(max.replaceAll("-", "")))
+                                    continue;
+                            }
+                            if (_im_type.length > 0) {
+                                let isNeed = false;
+                                for (let j = 0; j < _im_type.length; j++) {
+                                    const type = _im_type[j];
+                                    if (type[0] && type[0] === data[i].type[0]) {
+                                        isNeed = true
+                                        if (type[1] && type[1] === "o" && data[i].all.meta_pages.length > 0)
+                                            isNeed = false
+                                        if (type[1] && type[1] === "s" && data[i].all.meta_pages.length <= 0)
+                                            isNeed = false
                                         break;
                                     }
                                 }
-                                isNeed = isNeed && _isNeed;
+                                if (!isNeed) continue;
                             }
-                            if (!isNeed) continue;
+                            if (_name_tag.length > 0) {
+                                let isNeed = true;
+                                for (let j = 0; j < _name_tag.length; j++) {
+                                    const tag = _name_tag[j].toLowerCase();
+                                    let _isNeed = false;
+                                    for (let k = 0; k < data[i].tags.length; k++) {
+                                        if (data[i].tags[k].toLowerCase().includes(tag)) {
+                                            _isNeed = true;
+                                            break;
+                                        }
+                                    }
+                                    isNeed = isNeed && _isNeed;
+                                }
+                                if (!isNeed) continue;
+                            }
                         }
+
+
+                        var extra = '';
+                        var imgUrlCover = data[i]['image_urls']['medium'].replace('https://i.pximg.net', tmpSearchSettings['pixivbiu_RvrProxyUrl']);
+                        var imgUrl = data[i]['image_urls']['large'].replace('https://i.pximg.net', tmpSearchSettings['pixivbiu_RvrProxyUrl']);
+                        var bookedNum = data[i]['total_bookmarked'];
+
+                        if (data[i]['all']['meta_pages'].length > 0) {
+                            typeName['illustration'] = '多图';
+                            typeName['manga'] = '漫画';
+                            //extra += '<a target="_blank" href=".?code=%40w%3D' + data[i]['id'] + '"><op class="tooltip" title="查看完整作品">👀</op></a>';
+                        } else {
+                            typeName['illustration'] = '图';
+                            typeName['manga'] = '单漫';
+                        }
+
+                        if (tmpSearchSettings['pixivbiu_displayIsOriPic'] !== 'on')
+                            imgUrl = imgUrlCover;
+
+                        // 收藏按钮
+                        if (data[i]['is_bookmarked']) {
+                            extra += '<a id="marks_' + data[i]['id'] + '" href="javascript: doBookmark(' + data[i]['id'] + ', \'del\');"><b class="tooltip" title="取消收藏"><hicon>💘</hicon> ' + bookedNum + '</b></a>';
+                        } else {
+                            extra += '<a id="marks_' + data[i]['id'] + '" href="javascript: doBookmark(' + data[i]['id'] + ', \'add\');"><b class="tooltip" title="收藏"><hicon>💗</hicon> ' + bookedNum + '</b></a>';
+                        }
+
+                        // 下载归类用的文件夹名称
+                        /*
+                        if (c['args']['fun']['kt']) {
+                            kt = c['args']['fun']['kt'];
+                        } else if (c['args']['ops']['method'] === 'userWorks') {
+                            kt = '画师_' + data[0]['author']['id'];
+                        } else if (c['args']['ops']['method'] === 'userMarks') {
+                            kt = '收藏_' + c['args']['fun']['userID'];
+                        } else if (c['args']['ops']['method'] === 'rank') {
+                            kt = '排行榜_' + c['args']['fun']['mode'];
+                        } else if (c['args']['ops']['method'] === 'oneWork') {
+                            kt = '作品';
+                        } else {
+                            kt = c['args']['ops']['method'];
+                        }
+                        kt = kt.replaceAll('"', '_').replaceAll('\'', '_');*/
+
+                        // 下载按钮
+
+                        if (data[i]['all']['meta_pages'].length > 0) {
+                            extra += '<d class="tooltip" title="numbers"><img class="layer-icon" src="static/multiverse/assets/css/images/layer-icon.svg"><span class="layers-number">' + data[i]['all']['meta_pages'].length + '</span></d>';
+                        }
+
+
+                        // 图片预览内容
+
+                        //var extraText = '<a target="_blank" href=".?code=%40u%3D' + data[i]['author']['id'] + '%20-i">🔍 作者插画</a> <a target="_blank" href=".?code=%40u%3D' + data[i]['author']['id'] + '%20-c">🔍 漫画</a> <a href="javascript: doDownloadPic(\'' + kt + '\', ' + data[i]['id'] + ', ' + String(i) + ');">下载</a>';
+
+
+                        //extraText = '<a target="_blank" href=".?code=%40w%3D' + data[i]['id'] + '">👀 查看</a> ' + extraText;
+
+
+                        // 图片信息展示
+                        var desText = '<h2>';
+                        if (data[i]['tags'][0] === 'R-18') {
+                            desText += '<span class="r-18">R-18</span>';
+                        }
+                        desText += '<a target="_blank" href=".?code=%40w%3D' + data[i]['id'] + '"><span>' + maybeXSS(data[i]['title']) + '</span></a></h2><p>Created by <a style="" target="_blank" href=".?code=%40u%3D' + data[i]['author']['id'] +
+                            '%20-i">' + maybeXSS(data[i]['author']['name']) + '</a> on ';
+                        desText += data[i]['created_time'] + '<br>收藏@' + data[i]['total_bookmarked'] + '，浏览@' + data[i]['total_viewed'] + '</p>';
+                        //// 标签
+                        /*
+                        var tagss = '<p style="max-width: 25%;">';
+                        for (let kk = 0; kk < data[i]['tags'].length; kk++) {
+                            tagss = tagss + '<a target="_blank" href=".?code=%40s%3D' + maybeEncode(data[i]['tags'][kk]) + ' -o">#' + maybeXSS(data[i]['tags'][kk]) + '</a> ';
+                        }
+                        desText = tagss + '</p>' + desText;*/
+
+                        /*if (c['args']['ops']['method'] === 'oneWork' && i !== 0) {
+                            extra = '';
+                            extraText = '';
+                            desText = '';
+                        }
+
+                        extraClass = "";
+
+                        // R18 过滤
+                        if (tmpSearchSettings['pixivbiu_displayIsR18'] !== 'on' && data[i]['all']['x_restrict'] > 0)
+                            extraClass += ' mask-r18';*/
+
+                        // 最终结果
+                        var tempcontent = '<div id="art_' + data[i]['id'] + '" class="thumb"><div class="thumbfilter"><div class="thumb-content"><a target="_blank" href=".?code=%40w%3D' + data[i]['id'] +
+                            '"><div class="img-container"><img class="listimg" src="' + imgUrlCover +
+                            '" alt="' + data[i]['title'] + '" ></div></a>' + desText + '<section class="thumbAction">' + extra + '</section></div></div></div>';
+                        //console.log(tempcontent)
+                        rstHtml += tempcontent
+                        //rstHtml += '<article id="art_' + data[i]['id'] + '" class="thumb"><a href="' + imgUrl + '" class="image' + extraClass + '"><img src="' + imgUrlCover + '" alt="' + data[i]['title'] + '" /></a>' + desText + '<p>' + extraText + '</p><section class="thumbAction">' + extra + '</section></article>';
+
+
                     }
-
-                    var extra = '';
-                    var imgUrlCover = data[i]['image_urls']['medium'].replace('https://i.pximg.net', tmpSearchSettings['pixivbiu_RvrProxyUrl']);
-                    var imgUrl = data[i]['image_urls']['large'].replace('https://i.pximg.net', tmpSearchSettings['pixivbiu_RvrProxyUrl']);
-                    var bookedNum = data[i]['total_bookmarked'];
-
-                    if (data[i]['all']['meta_pages'].length > 0) {
-                        typeName['illustration'] = '多图';
-                        typeName['manga'] = '漫画';
-                        extra += '<a target="_blank" href=".?code=%40w%3D' + data[i]['id'] + '"><op class="tooltip" title="查看完整作品">👀</op></a>';
-                    } else {
-                        typeName['illustration'] = '图';
-                        typeName['manga'] = '单漫';
-                    }
-
-                    if (tmpSearchSettings['pixivbiu_displayIsOriPic'] !== 'on')
-                        imgUrl = imgUrlCover;
-
-                    // 收藏按钮
-                    if (data[i]['is_bookmarked']) {
-                        extra += '<a id="marks_' + data[i]['id'] + '" href="javascript: doBookmark(' + data[i]['id'] + ', \'del\');"><b class="tooltip" title="取消收藏"><hicon>💘</hicon> ' + bookedNum + '</b></a>';
-                    } else {
-                        extra += '<a id="marks_' + data[i]['id'] + '" href="javascript: doBookmark(' + data[i]['id'] + ', \'add\');"><b class="tooltip" title="收藏"><hicon>💗</hicon> ' + bookedNum + '</b></a>';
-                    }
-
-                    // 下载归类用的文件夹名称
-                    if (c['args']['fun']['kt']) {
-                        kt = c['args']['fun']['kt'];
-                    } else if (c['args']['ops']['method'] === 'userWorks') {
-                        kt = '画师_' + data[0]['author']['id'];
-                    } else if (c['args']['ops']['method'] === 'userMarks') {
-                        kt = '收藏_' + c['args']['fun']['userID'];
-                    } else if (c['args']['ops']['method'] === 'rank') {
-                        kt = '排行榜_' + c['args']['fun']['mode'];
-                    } else if (c['args']['ops']['method'] === 'oneWork') {
-                        kt = '作品';
-                    } else {
-                        kt = c['args']['ops']['method'];
-                    }
-                    kt = kt.replaceAll('"', '_').replaceAll('\'', '_');
-
-                    // 下载按钮
-                    extra += '<a id="dl_' + data[i]['id'] + '" href="javascript: doDownloadPic(\'' + kt + '\', ' + data[i]['id'] + ', ' + String(i) + ');"><d class="tooltip" title="下载">' + typeName[data[i]['type']] + '</d></a>';
-
-                    // 图片预览内容
-                    var extraText = '<a target="_blank" href=".?code=%40u%3D' + data[i]['author']['id'] + '%20-i">🔍 作者插画</a> <a target="_blank" href=".?code=%40u%3D' + data[i]['author']['id'] + '%20-c">🔍 漫画</a> <a href="javascript: doDownloadPic(\'' + kt + '\', ' + data[i]['id'] + ', ' + String(i) + ');">下载</a>';
-
-                    if (data[i]['all']['meta_pages'].length > 0) {
-                        extraText = '<a target="_blank" href=".?code=%40w%3D' + data[i]['id'] + '">👀 查看</a> ' + extraText;
-                    }
-
-                    // 图片信息展示
-                    var desText = '<h2><a style="border-bottom: solid 1px;" target="_blank" href="https://www.pixiv.net/artworks/' + data[i]['id'] + '">' + maybeXSS(data[i]['title']) + '</a></h2><p>Created by <a style="border-bottom: solid 1px;" target="_blank" href="https://www.pixiv.net/users/' + data[i]['author']['id'] + '">' + maybeXSS(data[i]['author']['name']) + '</a> on ' + data[i]['created_time'] + '<br>收藏@' + data[i]['total_bookmarked'] + '，浏览@' + data[i]['total_viewed'] + '</p>';
-                    //// 标签
-                    var tagss = '<p style="max-width: 25%;">';
-                    for (let kk = 0; kk < data[i]['tags'].length; kk++) {
-                        tagss = tagss + '<a target="_blank" href=".?code=%40s%3D' + maybeEncode(data[i]['tags'][kk]) + ' -o">#' + maybeXSS(data[i]['tags'][kk]) + '</a> ';
-                    }
-                    desText = tagss + '</p>' + desText;
-
-                    if (c['args']['ops']['method'] === 'oneWork' && i !== 0) {
-                        extra = '';
-                        extraText = '';
-                        desText = '';
-                    }
-
-                    extraClass = "";
-
-                    // R18 过滤
-                    if (tmpSearchSettings['pixivbiu_displayIsR18'] !== 'on' && data[i]['all']['x_restrict'] > 0)
-                        extraClass += ' mask-r18';
-
-                    // 最终结果
-                    rstHtml += '<article id="art_' + data[i]['id'] + '" class="thumb"><a href="' + imgUrl + '" class="image' + extraClass + '"><img src="' + imgUrlCover + '" alt="' + data[i]['title'] + '" /></a>' + desText + '<p>' + extraText + '</p><section class="thumbAction">' + extra + '</section></article>';
+                    $('#main').html(rstHtml);
                 }
 
                 // 筛选
@@ -623,7 +710,7 @@
                 $('#btn-save-refresh').show();
 
                 // 一键下载
-                headerHtml += '<li><a class="tooltip" href="javascript: dlPageAll();" title="下载本页所有图片（原图）">下载</a></li>';
+                //headerHtml += '<li><a class="tooltip" href="javascript: dlPageAll();" title="下载本页所有图片（原图）">下载</a></li>';
 
                 // 缓存文件
                 if (tmpCode === 2) {
@@ -646,13 +733,16 @@
 
                 // 下一组按钮
                 if (data.length !== 0) {
-                    headerHtml += '<li><a id="btnHeaderNext" href="javascript: grpActChon(\'next\');"><i class="icon solid fa-chevron-circle-right tooltip" title="下一组"></i></a></li>';
+                    if (c.args.ops.method !== 'oneWork') {
+                        headerHtml += '<li><a id="btnHeaderNext" href="javascript: grpActChon(\'next\');"><i class="icon solid fa-chevron-circle-right tooltip" title="下一组"></i></a></li>';
+                    }
                 } else {
                     rstHtml = btnGetHTML('none');
+                    $('#main').html(rstHtml);
                 }
 
-                // 输出
-                $('#main').html(rstHtml);
+
+
 
                 if ($.inArray('header', reLoadList) >= 0) {
                     $('#rstHeaderShow').html(headerHtml);
@@ -664,7 +754,8 @@
                 reMainJs(jQuery, ['main']);
             }
             // 动画过渡
-            window.setTimeout(function () {
+            window.setTimeout(function() {
+                document.getElementById('wrapper-onload').id = 'wrapper';
                 $('body').removeClass('is-preload');
                 if (title !== '') {
                     $('.search-area').addClass('search-area-by');

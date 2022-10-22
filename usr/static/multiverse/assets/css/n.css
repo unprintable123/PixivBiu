@@ -2,6 +2,22 @@
     font-weight: 600 !important;
 }
 
+::-webkit-scrollbar-thumb {
+    background: #ededed;
+    border-radius: 5px
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 5px
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background: #0000;
+}
+
 #main {
     transition-property: margin-top;
     transition-duration: 1s;
@@ -18,11 +34,11 @@
     transition-duration: 1s;
     transition-timing-function: ease;
     width: 100%;
-    padding: 100px 2.5em 3em 2.5em;
+    padding: 30px 2.5em 3em 2.5em;
 }
 
 .search-area-by {
-    padding: 100px 0 3em 0 !important;
+    padding: 30px 0 2em 0 !important;
 }
 
 .search-area .bar input {
@@ -30,14 +46,14 @@
     outline: 0;
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 10px;
     height: 1.5em;
     text-indent: .2em;
     border: 0;
-    background: #242629;
-    border-radius: 4px;
+    background: #2e333a;
+    border-radius: 8px;
     font: inherit;
-    font-size: 5em;
+    font-size: 3em;
 }
 
 #main .thumb>a {
@@ -54,12 +70,12 @@
 }
 
 #main .thumb .thumbAction a>b,
-#main .thumb .thumbAction a>d,
+#main .thumb .thumbAction d,
 #main .thumb .thumbAction a>op,
 #main .thumb .thumbAction a>sf {
     position: absolute;
-    top: .4em;
-    background: rgba(0, 0, 0, .2);
+    top: 0;
+    background: rgba(0, 0, 0, .3);
     backdrop-filter: blur(3px);
     color: #FFF;
     text-shadow: 0 1px 0 #000;
@@ -67,15 +83,21 @@
     font-weight: 700;
     line-height: 2em;
     padding: 0 .4em;
-    border-radius: .2em;
+    border-radius: 12px;
 }
 
-#main .thumb .thumbAction a>b {
-    left: .4em;
+#main .thumb-content .thumbAction a>b {
+    top: 8px;
+    left: 8px;
 }
 
-#main .thumb .thumbAction a>d {
-    right: .4em;
+#main .thumb-box .thumbAction d{
+    right: 0;
+}
+
+#main .thumb-content .thumbAction d {
+    top: 8px;
+    right: 8px;
 }
 
 #main .thumb .thumbAction a>op {
@@ -213,44 +235,6 @@
     display: none !important;
 }
 
-@media screen and (max-width: 1680px) {
-    #main .thumb {
-        width: 25% !important;
-    }
-}
-
-@media screen and (max-width: 1280px) {
-    #main .thumb {
-        width: 33.333333% !important;
-    }
-}
-
-@media screen and (max-width: 980px) {
-    #main .thumb {
-        width: 50% !important;
-    }
-}
-
-@media screen and (max-width: 736px) {
-    body {
-        padding: 0 !important;
-    }
-    .search-area {
-        padding: 100px 1em 3em 1em;
-    }
-    .poptrox-popup .caption {
-        display: block !important;
-        font-size: .8em;
-        line-height: 1.05em;
-    }
-}
-
-@media screen and (min-width: 1680px) {
-    body, input, select, textarea {
-        font-size: 12pt;
-    }
-}
-
 html::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -264,6 +248,14 @@ html::-webkit-scrollbar-thumb {
 
 html::-webkit-scrollbar-thumb:hover {
     background-color: #ddd;
+}
+
+.user-details #account::selection{
+    background: rgba(183, 44, 44, 0.3);
+}
+
+.user-details #id::selection{
+    background: rgba(65, 21, 213, 0.3);
 }
 
 ::selection {

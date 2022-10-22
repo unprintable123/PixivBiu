@@ -25,9 +25,10 @@ def home():
     return render_template("%s/index.html" % (SETS["sys"]["theme"]))
 
 
-@app.route("/<path:path>", methods=["GET", "POST"])
+@app.route("/api/<path:path>", methods=["GET", "POST"])
 def api(path):
-    return jsonify(handle.handleRoute.do(path))
+    #print(handle.handleRoute.do(path))
+    return jsonify(handle.handleRoute.do(r'api/' + path))
 
 
 if __name__ == '__main__':
