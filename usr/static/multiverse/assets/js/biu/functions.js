@@ -3,7 +3,7 @@ function getVersion() {
     $.ajax({
         type: "GET",
         url: 'api/biu/get/outdated/',
-        success: function (rep) {
+        success: function(rep) {
             rep = jQuery.parseJSON(JSON.stringify(rep));
             if (rep.code) {
                 if (rep.msg.latest) {
@@ -11,7 +11,7 @@ function getVersion() {
                 }
             }
         },
-        error: function (e) {
+        error: function(e) {
             console.log(e);
         }
     });
@@ -23,7 +23,7 @@ function checkOutdated() {
     $.ajax({
         type: "GET",
         url: 'api/biu/get/outdated/',
-        success: function (rep) {
+        success: function(rep) {
             rep = jQuery.parseJSON(JSON.stringify(rep));
             if (rep.code) {
                 if (rep.msg.latest) {
@@ -35,7 +35,7 @@ function checkOutdated() {
                 }
             }
         },
-        error: function (e) {
+        error: function(e) {
             console.log(e);
         }
     });
@@ -54,7 +54,9 @@ function getGetArg(variable) {
     var vars = query.split("&");
     for (var i = 0; i < vars.length; i++) {
         var pair = vars[i].split("=");
-        if (pair[0] == variable) { return pair[1]; }
+        if (pair[0] == variable) {
+            return pair[1];
+        }
     }
     return false;
 }
@@ -139,7 +141,7 @@ function regMatch(regex, str) {
 // 下载全部图片
 function dlPageAll() {
     if (confirm("你确定要一下子下载全部的图片嘛？！还是原图哎...\n其实点击图片右上角也可以下载。"))
-        $('.thumbAction').each(function () {
+        $('.thumbAction').each(function() {
             if ($(this).children('a:last')[0]['target'] !== '_blank') {
                 $(this).children('a:last')[0].click();
             }
@@ -178,7 +180,12 @@ function maybeEncode(c) {
 
 // XSS Prevention
 function maybeXSS(c) {
-    CHARS = { "<": "&lt;", "\"": "&quot;", "'": "&_quot;", "&": "&amp;" };
+    CHARS = {
+        "<": "&lt;",
+        "\"": "&quot;",
+        "'": "&_quot;",
+        "&": "&amp;"
+    };
     const KEYS = Object.keys(CHARS);
     for (let i = 0; i < KEYS.length; i++) {
         const key = KEYS[i];
@@ -193,12 +200,13 @@ function changeTitleName(name, from = null) {
     name = name.replace(/[a-z]/, fl => fl.toUpperCase());
     const final = from ? `${name} - ${from}` : name;
     const _title = $("title");
-    if (_title) _title.html(final); else return false;
+    if (_title) _title.html(final);
+    else return false;
     return true;
 }
 
-function getallimgs(){
-    $('.oneworklist .originimg img').each(function (i, ele) {
+function getallimgs() {
+    $('.oneworklist .originimg img').each(function(i, ele) {
         if (i) {
             $(ele).attr('src', $(ele).attr('unload'));
             $(ele).removeAttr('unload');
@@ -235,7 +243,7 @@ function userWorksPreview(au_list) {
                 s.scrollId = null;
             };
         },
-        handleScroll: function () {
+        handleScroll: function() {
             var s = this;
             if (!s.loadingComplete && s.$container.scrollLeft + s.$container.clientWidth + 30 > s.$container.scrollWidth) {
                 s.preload();
@@ -303,8 +311,8 @@ function _waterfall() {
     $('#main').empty();
     if (tmpPageData.args.ops.method === 'userWorks') {
         var userImgSrc = tmpPageData.rst.data[0].all.user.profile_image_urls.medium.replace('https://i.pximg.net', tmpSearchSettings['pixivbiu_RvrProxyUrl']);
-        $('#main').append('<div class="user-details"><img src="' + userImgSrc + '"><span>' + tmpPageData.rst.data[0].author.name
-        + '</span><div id="account">' + tmpPageData.rst.data[0].author.account + '</div><div id="uid">' + tmpPageData.rst.data[0].author.id + '</div></div>');
+        $('#main').append('<div class="user-details"><img src="' + userImgSrc + '"><span>' + tmpPageData.rst.data[0].author.name +
+            '</span><div id="account">' + tmpPageData.rst.data[0].author.account + '</div><div id="uid">' + tmpPageData.rst.data[0].author.id + '</div></div>');
     }
     $('#main').append('<div id="waterfall"></div>')
     var template = document.createElement('div');
@@ -315,7 +323,11 @@ function _waterfall() {
     grave.id = '0';
     grave.className = 'grave';
     grave.innerHTML = '<div class="loading-icon"></div>';
-    var wf = {
+    if (waterfallHandler) {
+        waterfallHandler.destruction();
+        waterfallHandler = null;
+    }
+    waterfallHandler = {
         indexpage: Number(tmpPageData.args.ops.groupIndex),
         args: tmpPageData.args,
         data: tmpPageData.rst.data,
@@ -341,8 +353,28 @@ function _waterfall() {
         grave: grave,
         created: function() {
             this.resetPositionMap();
-            window.addEventListener('scroll', this._handleScrollTimer.bind(this));
-            window.addEventListener('resize', this._handleResizeTimer.bind(this));
+            this.scrollEventListener = this._handleScrollTimer.bind(this)
+            window.addEventListener('scroll', this.scrollEventListener);
+            this.resizeEventListener = this._handleResizeTimer.bind(this)
+            window.addEventListener('resize', this.resizeEventListener);
+        },
+        destruction: function() {
+            var s = this
+            window.removeEventListener('scroll', this.scrollEventListener);
+            this.scrollEventListener = null;
+            window.removeEventListener('resize', this.resizeEventListener);
+            this.resizeEventListener = null;
+            s.indexpage = null
+            s.args = null
+            s.data = null
+            s.grave = null
+            s.template = null
+            s.$container = null
+            s.scrollGroup = null
+            s.onview = null
+            s.onviewCache = null
+            s.columnHeights = null
+            s.columnTranslateX = null
         },
         _handleScrollTimer: function(e) {
             var s = this;
@@ -683,7 +715,7 @@ function _waterfall() {
                 setTimeout(function() {
                     try {
                         s.$container.replaceChild(ci, g);
-                        setTimeout(function(){
+                        setTimeout(function() {
                             ci.className = 'thumb';
                         }, 50);
                     } catch (err) {
@@ -757,5 +789,5 @@ function _waterfall() {
             return _h + 25;
         }
     }
-    wf.created();
+    waterfallHandler.created();
 }

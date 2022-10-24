@@ -104,31 +104,22 @@
                     <section>
                         <h2>属性</h2>
                         <div class="grid-3">
-                            <input id="filtersImageWidth" class="tooltip" placeholder="宽度" autocomplete="off"
-                                title="宽度范围，如 100:200 或 100: 或 :200">
-                            <input id="filtersImageHeight" class="tooltip" placeholder="高度" autocomplete="off"
-                                title="高度范围，如 100:200 或 100: 或 :200">
-                            <input id="filtersImageWidthHeightRate" class="tooltip" placeholder="宽高比" autocomplete="off"
-                                title="宽高比范围，以 / 表示比，以 : 表示范围，如 1/1:4/3 或 1/1: 或 :4/3">
+                            <input id="filtersImageWidth" class="tooltip" placeholder="宽度" autocomplete="off" title="宽度范围，如 100:200 或 100: 或 :200">
+                            <input id="filtersImageHeight" class="tooltip" placeholder="高度" autocomplete="off" title="高度范围，如 100:200 或 100: 或 :200">
+                            <input id="filtersImageWidthHeightRate" class="tooltip" placeholder="宽高比" autocomplete="off" title="宽高比范围，以 / 表示比，以 : 表示范围，如 1/1:4/3 或 1/1: 或 :4/3">
                         </div>
                         <div class="grid-3">
-                            <input id="filtersNumBookmark" class="tooltip" placeholder="收藏数" autocomplete="off"
-                                title="收藏数范围，如 100:200 或 100: 或 :200">
-                            <input id="filtersNumView" class="tooltip" placeholder="浏览数" autocomplete="off"
-                                title="浏览数范围，如 100:200 或 100: 或 :200">
-                            <input id="filtersImageTime" class="tooltip" placeholder="发布时间" autocomplete="off"
-                                title="发布时间范围，如 2020-03-13:2022-03-13 或 start: 或 :end">
+                            <input id="filtersNumBookmark" class="tooltip" placeholder="收藏数" autocomplete="off" title="收藏数范围，如 100:200 或 100: 或 :200">
+                            <input id="filtersNumView" class="tooltip" placeholder="浏览数" autocomplete="off" title="浏览数范围，如 100:200 或 100: 或 :200">
+                            <input id="filtersImageTime" class="tooltip" placeholder="发布时间" autocomplete="off" title="发布时间范围，如 2020-03-13:2022-03-13 或 start: 或 :end">
                         </div>
                     </section>
                     <section>
                         <h2>类别</h2>
                         <div class="grid-3">
-                            <input id="filtersImageType" class="tooltip" placeholder="类型" autocomplete="off"
-                                title="作品的类型，可填入 i(插图), m(漫画), u(动图), o(其他)，在其后加 s 可仅显示多图，加 o 仅显示单图。多个类型以逗号隔开，如 i,ms,oo">
-                            <input id="filtersNameTag" class="tooltip" placeholder="标签关键词" autocomplete="off"
-                                title="标签中必须包含全部关键词，多个标签以逗号隔开，如 tag1,tag2">
-                            <input id="filtersRankDate" class="tooltip" placeholder="排行榜日期" autocomplete="off"
-                                title="仅对排行榜有效，查看指定日期的数据，如 2022-03-24">
+                            <input id="filtersImageType" class="tooltip" placeholder="类型" autocomplete="off" title="作品的类型，可填入 i(插图), m(漫画), u(动图), o(其他)，在其后加 s 可仅显示多图，加 o 仅显示单图。多个类型以逗号隔开，如 i,ms,oo">
+                            <input id="filtersNameTag" class="tooltip" placeholder="标签关键词" autocomplete="off" title="标签中必须包含全部关键词，多个标签以逗号隔开，如 tag1,tag2">
+                            <input id="filtersRankDate" class="tooltip" placeholder="排行榜日期" autocomplete="off" title="仅对排行榜有效，查看指定日期的数据，如 2022-03-24">
                         </div>
                     </section>
                 </div>
@@ -143,10 +134,8 @@
                         <p>搜索块以外的筛选项留空时为取消。</p>
                     </section>
                     <section>
-                        <button class="primary"
-                            onclick="javascript: saveFiltersCookie(); saveSettingsCookie(); togglePanel('#filter'); grpActChon('now');">保存</button>
-                        <button class="primary"
-                            onclick="javascript: saveFiltersCookie(true); grpActChon('now');">重置</button>
+                        <button class="primary" onclick="javascript: saveFiltersCookie(); saveSettingsCookie(); togglePanel('#filter'); grpActChon('now');">保存</button>
+                        <button class="primary" onclick="javascript: saveFiltersCookie(true); grpActChon('now');">重置</button>
                     </section>
                 </div>
             </div>
@@ -165,10 +154,8 @@
                     <section>
                         <h2>功能</h2>
                         <div>
-                            <input id="settingsActionType" class="tooltip" placeholder="操作类型" autocomplete="off"
-                                title="public: 当进行收藏、关注等操作时默认放入公开类别；private: 私人类别">
-                            <input id="settingsIsR18" class="tooltip" placeholder="R18 内容" autocomplete="off"
-                                title="是否展示 R18 内容。on: 开启，off: 遮蔽，gone: 不显示">
+                            <input id="settingsActionType" class="tooltip" placeholder="操作类型" autocomplete="off" title="public: 当进行收藏、关注等操作时默认放入公开类别；private: 私人类别">
+                            <input id="settingsIsR18" class="tooltip" placeholder="R18 内容" autocomplete="off" title="是否展示 R18 内容。on: 开启，off: 遮蔽，gone: 不显示">
                         </div>
                         <p>更多设置请于 <b>config.yml</b> 文件中修改。</p>
                     </section>
@@ -251,6 +238,7 @@
         var tmpSearchSettings = {};
         var tmpFilters = {};
         var downloadList = {};
+        var waterfallHandler = null;
         var settingsMods = {
             '#settingsPageNum': ['pixivbiu_searchPageNum', 5, '每组页数'],
             '#settingsIsOriPic': ['pixivbiu_displayIsOriPic', 'off', '大图预览'],
@@ -413,6 +401,10 @@
                 "ugoira": "动",
                 "other": "其他"
             };
+            if (waterfallHandler) {
+                waterfallHandler.destruction();
+                waterfallHandler = null;
+            }
             if (c.rst && c.rst.data) {
                 let i = 0;
                 let data = c.rst.data;
