@@ -117,9 +117,12 @@
                     <section>
                         <h2>类别</h2>
                         <div class="grid-3">
-                            <input id="filtersImageType" class="tooltip" placeholder="类型" autocomplete="off" title="作品的类型，可填入 i(插图), m(漫画), u(动图), o(其他)，在其后加 s 可仅显示多图，加 o 仅显示单图。多个类型以逗号隔开，如 i,ms,oo">
-                            <input id="filtersNameTag" class="tooltip" placeholder="标签关键词" autocomplete="off" title="标签中必须包含全部关键词，多个标签以逗号隔开，如 tag1,tag2">
-                            <input id="filtersRankDate" class="tooltip" placeholder="排行榜日期" autocomplete="off" title="仅对排行榜有效，查看指定日期的数据，如 2022-03-24">
+                            <input id="filtersImageType" class="tooltip" placeholder="类型" autocomplete="off"
+                                title="作品的类型，可填入 i(插图), m(漫画), u(动图), o(其他)，尾部添加 s 则仅显示多图，添加 o 则仅显示单图。多个类型以逗号隔开，如 i, ms, oo">
+                            <input id="filtersNameTag" class="tooltip" placeholder="标签关键词" autocomplete="off"
+                                title="标签中必须包含全部关键词，多个标签以逗号隔开，以 ! 感叹号开头则排除此标签，如 tag1, !tag2">
+                            <input id="filtersRankDate" class="tooltip" placeholder="排行榜日期" autocomplete="off"
+                                title="仅对排行榜有效，查看指定日期的数据，如 2022-03-24">
                         </div>
                     </section>
                 </div>
@@ -127,9 +130,12 @@
                     <section>
                         <h2>搜索</h2>
                         <div>
-                            <input id="settingsPageNum" class="tooltip" placeholder="每组页数" autocomplete="off" title="单次搜索的页数，建议参数不要过大">
-                            <input id="settingsSearchMode" class="tooltip" placeholder="搜索模式" autocomplete="off" title="tag: 匹配部分标签（默认），otag: 全标签，des: 标题或描述">
-                            <input id="settingsSortMode2" class="tooltip" placeholder="排序模式" autocomplete="off" title="0: 按收藏数降序，1: 按人气（浏览数）降序，2: 按日期降序，3: 按日期升序，在其后加 s 可为所有结果排序。如 0 或 0s">
+                            <input id="settingsPageNum" class="tooltip" placeholder="每组页数" autocomplete="off"
+                                title="单次搜索的页数，建议参数不要过大">
+                            <input id="settingsSearchMode" class="tooltip" placeholder="搜索模式" autocomplete="off"
+                                title="tag: 匹配部分标签（默认），otag: 全标签，des: 标题或描述">
+                            <input id="settingsSortMode2" class="tooltip" placeholder="排序模式" autocomplete="off"
+                                title="0: 按收藏数降序，1: 按浏览数降序，2: 按日期降序，3: 按日期升序，在其后加 s 可为所有结果排序。如 0 或 0s">
                         </div>
                         <p>搜索块以外的筛选项留空时为取消。</p>
                     </section>
@@ -147,8 +153,10 @@
                     <section>
                         <h2>图片</h2>
                         <div>
-                            <input id="settingsIsOriPic" class="tooltip" placeholder="大图预览" autocomplete="off" title="在图片详情页显示较大尺寸的图片。on: 开启，off: 关闭（若图片加载时间过长，建议关闭）">
-                            <input id="settingsRvrProxyUrl" class="tooltip" placeholder="图片反代地址" autocomplete="off" title="Pixiv 图片反向代理地址（如果不是很懂请勿修改）">
+                            <input id="settingsIsOriPic" class="tooltip" placeholder="大图预览" autocomplete="off"
+                                title="在图片详情页显示较大尺寸的图片。on: 开启，off: 关闭（若图片加载时间过长，建议关闭）">
+                            <input id="settingsRvrProxyUrl" class="tooltip" placeholder="图片反代地址" autocomplete="off"
+                                title="Pixiv 前端图片反向代理地址，以 http(s):// 开头">
                         </div>
                     </section>
                     <section>
@@ -162,8 +170,12 @@
                 </div>
                 <div class="filters">
                     <section>
-                        <h2>预留</h2>
-                        <button style="margin: 5px 0;" class="primary" onclick="javascript: saveSettingsCookie();">保存</button>
+                        <h2>其他</h2>
+                        <button style="margin: 5px 0;" class="primary"
+                            onclick="javascript: saveSettingsCookie();">保存</button>
+                        <button class="primary" onclick="javascript: saveSettingsCookie(true,
+                            settingsMods, ['#settingsIsOriPic', '#settingsIsR18', '#settingsActionType',
+                            '#settingsRvrProxyUrl']); loadSearchSettings();">重置</button>
                     </section>
                 </div>
             </div>
@@ -175,7 +187,7 @@
             <div class="inner split">
                 <div>
                     <section>
-                        <h2>PixivBiu@<span id="hint-current-verson">?</span></h2>
+                        <h2>PixivBiu@<span id="hint-current-verson">Unknown</span></h2>
                         <p>一款不错的 Pixiv 搜索<b>辅助</b>工具。<br>基于 Python@3.7(+) 构建。</p>
                     </section>
                     <section>
@@ -239,6 +251,7 @@
         var tmpFilters = {};
         var downloadList = {};
         var waterfallHandler = null;
+        var biuInfo = { pPximgRProxyURL: "https://i.pixiv.re" }
         var settingsMods = {
             '#settingsPageNum': ['pixivbiu_searchPageNum', 5, '每组页数'],
             '#settingsIsOriPic': ['pixivbiu_displayIsOriPic', 'off', '大图预览'],
@@ -246,7 +259,7 @@
             '#settingsSortMode2': ['pixivbiu_sortMode2', '0', '排序模式'],
             '#settingsSearchMode': ['pixivbiu_searchMode', 'tag', '搜索模式'],
             '#settingsActionType': ['pixivbiu_actionType', 'public', '操作类型'],
-            '#settingsRvrProxyUrl': ['pixivbiu_RvrProxyUrl', 'https://i.pixiv.re', '图片反代地址'],
+            '#settingsRvrProxyUrl': ['pixivbiu_RvrProxyUrl', biuInfo.pPximgRProxyURL, '图片反代地址'],
         };
         var filtersMods = {
             '#filtersImageWidth': ['pixivbiu_fitlerImWidth', '宽度'],
@@ -405,7 +418,7 @@
                 waterfallHandler.destruction();
                 waterfallHandler = null;
             }
-            if (c.rst && c.rst.data) {
+            if (c.rst && c.rst.data && c.rst.data.length > 0) {
                 let i = 0;
                 let data = c.rst.data;
                 const groupIndex = Number(c['args']['ops']['groupIndex']);
@@ -447,7 +460,7 @@
 
                 // 排序
                 const _st_mode = String(tmpSearchSettings["pixivbiu_sortMode2"]);
-                if (_st_mode && c.args.ops.method === "works" || (_st_mode[1] && _st_mode[1] === "s")) {
+                if (_st_mode && (c.args.ops.method === "works" || (_st_mode[1] && _st_mode[1] === "s"))) {
                     const _type = Number(_st_mode[0]);
                     data.sort((a, b) => {
                         if (_type === 0) return b.total_bookmarked - a.total_bookmarked;
