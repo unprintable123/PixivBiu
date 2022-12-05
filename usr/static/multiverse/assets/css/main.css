@@ -1736,6 +1736,10 @@ body.is-preload #header {
     object-fit: cover;
 }
 
+.unloadimg {
+    height: 0;
+}
+
 #main .getmoreimg {
     cursor: pointer;
     font-size: 1.3em;

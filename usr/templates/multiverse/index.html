@@ -504,12 +504,11 @@
                             var imgUrl = data[0]['all']['meta_pages'][i]['image_urls']['original'].replace('https://i.pximg.net', tmpSearchSettings['pixivbiu_RvrProxyUrl']);
                             if (i == 0) {
                                 imgs += '<div class="originimg"><img src="' + imgUrl + '""></div>';
+                                imgs += '<div class="getmoreimg" onclick="javascript: getallimgs()">加载全部</div>'
                             } else {
-                                imgs += '<div class="originimg"><img src unload="' + imgUrl + '""></div>';
+                                imgs += '<div class="unloadimg"><img src unload="' + imgUrl + '""></div>';
                             }
-
                         }
-                        imgs += '<div class="getmoreimg" onclick="javascript: getallimgs()">加载全部</div>'
                     }
                     rstHtml += '<div class="oneworklist">' + imgs + '</div>';
 

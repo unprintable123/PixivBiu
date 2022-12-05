@@ -208,13 +208,17 @@ function changeTitleName(name, from = null) {
 }
 
 function getallimgs() {
+    $('.oneworklist .unloadimg').each(function(i, ele) {
+        $(ele).removeClass('unloadimg');
+        $(ele).addClass('originimg');
+    });
+    $('.oneworklist .getmoreimg').remove();
     $('.oneworklist .originimg img').each(function(i, ele) {
         if (i) {
             $(ele).attr('src', $(ele).attr('unload'));
             $(ele).removeAttr('unload');
         }
     });
-    $('.oneworklist .getmoreimg').remove();
 }
 
 function userWorksPreview(au_list) {
