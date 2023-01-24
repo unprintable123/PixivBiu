@@ -10,10 +10,8 @@ PixivBiu 是一款不错的 Pixiv **辅助**工具。
 * Pixiv 搜索，可免会员按收藏数、人气、日期排序
 * 下载原始图片，包括插画、漫画、动图
 * 多种下载模式，单、多线程模式以及 aria2 支持
-* 筛选图片的宽高、宽高比、类型、时间、标签等
 * 获取用户的作品、收藏夹、关注列表、推荐等
-* 获取排行榜，包括今日、本周、本月、指定日期等
-* 收藏作品、关注等
+* 筛选图片的宽高、类型、标签等
 
 ## 使用
 
@@ -21,7 +19,7 @@ PixivBiu 是一款不错的 Pixiv **辅助**工具。
 
 * 安装依赖，执行 `pip install -r requirements.txt`
   + [Flask](https://github.com/pallets/flask)、[requests](https://github.com/psf/requests)、[PyYAML](https://github.com/yaml/pyyaml)、[Pillow](https://github.com/python-pillow/Pillow)、[PixivPy](https://github.com/upbit/pixivpy)、[PySocks](https://github.com/Anorov/PySocks)
-* 修改 `./config.yml` 相关配置选项，具体可参考[默认配置文件](./app/config/biu_default.yml)
+* 修改 `./config.yml` 相关配置项，具体可参考[默认配置文件](./app/config/biu_default.yml)
 * 执行 `python main.py`
 * 访问运行地址，默认为 `http://127.0.0.1:4001/`
 
@@ -29,17 +27,13 @@ PixivBiu 是一款不错的 Pixiv **辅助**工具。
 
 此项目基于 `Python@3.7(+)` 编写，使用 `PyInstaller` 构建编译版本。
 
-这里只提供 Windows 和 macOS 的编译版本，如有其他需求请自行编译。
+这里只提供 Windows、macOS 和 Ubuntu 的编译版本，如有其他需求请自行编译。
 
 具体可在 [GitHub Releases](https://github.com/txperl/PixivBiu/releases) 中下载，或者[在这](https://biu.tls.moe/#/lib/dl)下载。
 
 ### Docker
 
 - [Docker_Buildx_PixivBiu](https://github.com/zzcabc/Docker_Buildx_PixivBiu) by [zzcabc](https://github.com/zzcabc)
-
-## 文档
-
-目前已有**使用、API**类文档，如有需要请访问[这里](https://biu.tls.moe/)。
 
 ## 贡献维护
 

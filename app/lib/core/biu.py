@@ -1,3 +1,4 @@
+import atexit
 import os
 import platform
 import sys
@@ -14,7 +15,7 @@ from altfe.interface.root import interRoot
 @interRoot.bind("biu", "LIB_CORE")
 class CoreBiu(interRoot):
     def __init__(self):
-        self.ver = 206000
+        self.ver = 206010
         self.place = "local"
         self.sysPlc = platform.system()
         self.api_route = "direct"
@@ -32,10 +33,8 @@ class CoreBiu(interRoot):
         self.STATUS = {"rate_search": {}, "rate_download": {}}
         self.auto()
 
-    def __del__(self):
-        self.pool_srh.shutdown(False)
-
     def auto(self):
+        atexit.register(self.__before_exit)
         self.__load_config()  # 加载配置项
         self.__pre_check()  # 运行前检测
         self.proxy = self.__get_system_proxy()  # 加载代理地址
@@ -47,6 +46,9 @@ class CoreBiu(interRoot):
         self.__set_image_host()  # 设置图片服务器地址
         self.__show_ready_info()  # 展示初始化完成信息
         return self
+
+    def __before_exit(self):
+        self.pool_srh.shutdown(False)
 
     def __load_config(self):
         """
@@ -236,15 +238,20 @@ class CoreBiu(interRoot):
 
     def __pro_refresh_token(self):
         """
-        子线程，每 60*6 分钟刷新一次 token 以持久化登录状态。
+        子线程，每 30 分钟刷新一次 token 以持久化登录状态。
         :return: none
         """
         while True:
-            time.sleep(3600 * 6)
-            self.STATIC.localMsger.msg(
-                f"{self.lang('others.hint_in_update_token')}: %s"
-                % time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())))
-            self.__login(refresh_token=self.api.refresh_token, silent=True)
+            time.sleep(30 * 60)
+            self.update_token()
+
+    def update_token(self):
+        ori_access_token = self.api.access_token
+        self.STATIC.localMsger.msg(
+            f"{self.lang('others.hint_in_update_token')}: %s"
+            % time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())))
+        self.__login(refresh_token=self.api.refresh_token, silent=True)
+        return self.api.access_token != ori_access_token
 
     def update_status(self, type_, key, c):
         """

@@ -229,6 +229,7 @@
 .poptrox-popup .caption {
     position: fixed;
     background-image: none;
+    text-shadow: 0 0 15px #000;
 }
 
 .poptrox-popup:before {
