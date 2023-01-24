@@ -1557,6 +1557,7 @@ body.is-preload #header {
 
 .work-details {
     width: 34%;
+    overflow: hidden;
     right: 0px;
 }
 

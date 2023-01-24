@@ -268,7 +268,7 @@ function userWorksPreview(au_list) {
                 data: {
                     'userID': s.userID,
                     'type': 'illust',
-                    'totalPage': tmpSearchSettings['pixivbiu_searchPageNum'],
+                    'totalPage': 1,
                     'groupIndex': s.indexpage,
                 },
                 success: function(rep) {
